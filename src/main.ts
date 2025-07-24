@@ -8,7 +8,10 @@ import { join } from 'path';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
-
+  app.enableCors({
+  origin: process.env.FRONTEND_URL || 'http://localhost:3001',
+    credentials: true, // if you want to send cookies or auth headers
+  });
   // Serve static assets
   app.useStaticAssets(join(__dirname, '..', 'uploads', 'gallery'), {
     prefix: '/uploads/gallery/',
