@@ -1,23 +1,19 @@
-import { IsNumber, IsArray, ValidateNested, IsString } from 'class-validator';
-import { Type } from 'class-transformer';
-
-class ItineraryItem {
-    @IsString()
-    day: string;
-
-    @IsString()
-    title: string;
-
-    @IsString()
-    description: string;
-}
+import { IsNotEmpty, IsOptional, IsString, IsNumber } from 'class-validator';
 
 export class CreateItineraryDto {
-    @IsNumber()
-    tourId: number;
+  @IsString()
+  @IsNotEmpty()
+  day: string;
 
-    @IsArray()
-    @ValidateNested({ each: true })
-    @Type(() => ItineraryItem)
-    itineraries: ItineraryItem[];
+  @IsString()
+  @IsOptional()
+  title?: string;
+
+  @IsString()
+  @IsNotEmpty()
+  description: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  tourDetailId: number;
 }

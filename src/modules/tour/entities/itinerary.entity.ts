@@ -1,5 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import { Tour } from './tour.entity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne } from 'typeorm';
+import { TourDetail } from './tour-detail.entity';
 
 @Entity('itineraries')
 export class Itinerary {
@@ -15,6 +15,7 @@ export class Itinerary {
   @Column('text')
   description: string;
 
-  @ManyToOne(() => Tour, tour => tour.itinerary, { onDelete: 'CASCADE' })
-  tour: Tour;
+  @OneToOne(() => TourDetail, TourDetail => TourDetail.itinerary, { onDelete: 'CASCADE' })
+  tourDetail: TourDetail;
+  
 }

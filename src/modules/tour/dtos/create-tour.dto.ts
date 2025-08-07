@@ -1,40 +1,35 @@
-import { IsString, IsNumber } from 'class-validator';
+import { IsString, IsNotEmpty, IsNumber, IsOptional } from 'class-validator';
 
 export class CreateTourDto {
   @IsString()
+  @IsNotEmpty()
   title: string;
 
   @IsString()
-  overview: string;
+  @IsNotEmpty()
+  review: string;
 
-  @IsString()
-  tourInfo: string;
-
-  @IsString()
-  highlights: string;
-
-  @IsString()
-  category: string;
-
-  // change location to locationId which should be a number (or string if your PK is string)
   @IsNumber()
-  locationId: number;
+  @IsNotEmpty()
+  categoryId: number; // ID of the Category entity
 
   @IsString()
+  @IsNotEmpty()
   duration: string;
 
   @IsNumber()
+  @IsNotEmpty()
   price: number;
 
   @IsNumber()
+  @IsNotEmpty()
   rating: number;
 
-  @IsString()
-  inclusion: string;
+  @IsNumber()
+  @IsOptional()
+  locationId?: number; // ID of the Location entity
 
-  @IsString()
-  exclusion: string;
-
-  @IsString()
-  mapEmbedUrl: string;
+  @IsNumber()
+  @IsOptional()
+  detailId?: number; // ID of the TourDetail entity if pre-created
 }

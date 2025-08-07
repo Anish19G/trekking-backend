@@ -42,8 +42,8 @@ export class Booking {
   @Column('decimal')
   payableNow: number;
 
-  @ManyToOne(() => Tour, (tour) => tour.bookings, { onDelete: 'CASCADE' })
-  tour: Tour;
+  // @ManyToOne(() => Tour, (tour) => tour.bookings, { onDelete: 'CASCADE' })
+  // tour: Tour;
 
   @CreateDateColumn()
   createdAt: Date;

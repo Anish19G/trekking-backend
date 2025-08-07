@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { Tour } from './tour.entity';
+import { TourDetail } from './tour-detail.entity';
 
 @Entity('galleries')
 export class Gallery {
@@ -9,6 +9,6 @@ export class Gallery {
   @Column()
   imageUrl: string;
 
-  @ManyToOne(() => Tour, (tour) => tour.gallery, { onDelete: 'CASCADE' })
-  tour: Tour;
+  @ManyToOne(() => TourDetail, (TourDetail) => TourDetail.images, { onDelete: 'CASCADE' })
+  tourDetail: TourDetail;
 }

@@ -1,10 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne } from 'typeorm';
-import { Itinerary } from './itinerary.entity';
-import { Gallery } from './gallery.entity';
-import { Booking } from './booking.entity';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToOne } from 'typeorm';
 import { Location } from './location.entity';
-
-
+import { TourDetail } from './tour-detail.entity';
+import { Category } from './tour-category.entity';
 @Entity('tours')
 export class Tour {
   @PrimaryGeneratedColumn()
@@ -14,19 +11,13 @@ export class Tour {
   title: string;
 
   @Column('text')
-  overview: string;
+  review: string;
 
-  @Column('text')
-  tourInfo: string;
-
-  @Column('text')
-  highlights: string;
+  @ManyToOne(() => Category, category => category.tour)
+  category: Category;
 
   @Column()
-  category: string; // History, Culture, etc.
-
-  @Column()
-  duration: string; // e.g., "5 Days"
+  duration: string; 
 
   @Column('decimal')
   price: number;
@@ -34,25 +25,11 @@ export class Tour {
   @Column('decimal')
   rating: number;
 
-  @Column('text')
-  inclusion: string;
-
-  @Column('text')
-  exclusion: string;
-
-  @Column()
-  mapEmbedUrl: string;
-
-  @OneToMany(() => Itinerary, itinerary => itinerary.tour)
-  itinerary: Itinerary[];
-
-  @OneToMany(() => Gallery, (gallery) => gallery.tour, { cascade: true })
-  gallery: Gallery[];
-
-  @OneToMany(() => Booking, (booking) => booking.tour)
-  bookings: Booking[];
-
-  @ManyToOne(() => Location, location => location.tours)
+  @ManyToOne(() => Location, location => location.tours, { nullable: true, onDelete: 'SET NULL' })
+  @JoinColumn({ name: 'locationId' })
   location: Location;
+
+  @OneToOne(() => TourDetail, detail => detail.tour)
+  detail: TourDetail;
 
 }
